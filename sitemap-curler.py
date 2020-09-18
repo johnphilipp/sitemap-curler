@@ -82,7 +82,7 @@ elif rangeSpec.rangeTo - rangeSpec.rangeTo < 0:
 
 
 if followUpOpenInBrowser == "y":
-    print("Opening windows...")
+    print("\nOpening windows...")
 
     if ynRange == "y":
         for i in range(0, len(linkRepo)):
