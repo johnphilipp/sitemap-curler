@@ -27,7 +27,7 @@ for i in range(0, len(content)):
     if content[i : i + 5] == "<loc>":
         startOfLink = i + 5
 
-        for j in range(0, len(content)):
+        for j in range(0, len(content) - i):
             if content[i + j : i + j + 6] == "</loc>":
                 endOfLink = i + j
                 break
@@ -60,6 +60,17 @@ if followUpSaveToFile == "y":
 
 # OPTIONAL FOLLOW UP #2: OPEN URLS (ALL OR RANGE) IN BROWSER
 followUpOpenInBrowser = input("\nDo you want to open the links in your browser? (y/n) ")
+
+
+def exitProgram():
+    print("\nProgram finished.\n")
+    f.close()
+    exit()
+
+
+if followUpOpenInBrowser == "n":
+    exitProgram()
+
 ynRange = input("\nAll of them? (y/n) ")
 
 
@@ -94,7 +105,4 @@ if followUpOpenInBrowser == "y":
 
     print("Finished opening windows.")
 
-
-print("\nProgram finished.\n")
-
-f.close()
+exitProgram()
