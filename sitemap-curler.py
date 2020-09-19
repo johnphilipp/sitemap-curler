@@ -27,7 +27,7 @@ print("\nFound {} characters in sitemap".format(len(content)))
 print("Crawling...\n")
 
 
-# URL CRAWL
+# CRAWL URL FOR LINKS
 linkRepo = []
 
 for i in range(0, len(content)):
