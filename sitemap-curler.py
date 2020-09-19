@@ -4,6 +4,13 @@ import os.path
 import pathlib
 import requests
 
+# EXIT FUNCTION
+def exitProgram():
+    print("\nProgram finished.\n")
+    f.close()
+    exit()
+
+
 # DOWNLOAD SITEMAP.XML FROM USER SPECIFIED URL
 url = input("Please enter full URL to sitemap: ")
 
@@ -59,37 +66,31 @@ if followUpSaveToFile == "y":
 
 
 # OPTIONAL FOLLOW UP #2: OPEN URLS (ALL OR RANGE) IN BROWSER
-def exitProgram():
-    print("\nProgram finished.\n")
-    f.close()
-    exit()
-
-
-def rangeSpec():
-    rangeSpec.rangeFrom = int(input("\nSpecify range - From? "))
-    rangeSpec.rangeTo = int(input("\nSpecify range - To? "))
-
-    return rangeSpec.rangeFrom, rangeSpec.rangeTo
-
-
-def openAllWindows(linkRepo=linkRepo):
-    print("\nOpening all windows...")
-
-    for i in range(0, len(linkRepo)):
-        webbrowser.open(linkRepo[i], new=2)
-
-    print("Finished opening windows.")
-
-
 followUpOpenInBrowser = input("\nDo you want to open the links in your browser? (y/n) ")
 
-if followUpOpenInBrowser == "n":
-    exitProgram()
-
-elif followUpOpenInBrowser == "y":
+if followUpOpenInBrowser == "y":
     howManyWindows = input("\nAll of them? (y/n) ")
 
-    if howManyWindows == "n":
+    if howManyWindows == "y":
+
+        def openAllWindows(linkRepo=linkRepo):
+            print("\nOpening all windows...")
+
+            for i in range(0, len(linkRepo)):
+                webbrowser.open(linkRepo[i], new=2)
+
+            print("Finished opening windows.")
+
+        openAllWindows()
+
+    elif howManyWindows == "n":
+
+        def rangeSpec():
+            rangeSpec.rangeFrom = int(input("\nSpecify range - From? "))
+            rangeSpec.rangeTo = int(input("\nSpecify range - To? "))
+
+            return rangeSpec.rangeFrom, rangeSpec.rangeTo
+
         rangeSpec()
 
         def rangeValidation(rangeFrom=rangeSpec.rangeFrom, rangeTo=rangeSpec.rangeTo):
@@ -111,10 +112,4 @@ elif followUpOpenInBrowser == "y":
 
         openRangeWindows()
 
-    elif howManyWindows == "y":
-        openAllWindows()
-
-    exitProgram()
-
-else:
-    exitProgram()
+exitProgram()
