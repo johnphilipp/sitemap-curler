@@ -6,7 +6,7 @@ Where the idea for the (small but effective) script comes from:
 
     2. Copy and pasting all (> 100) sitemap URLs manually would have been too annoying.
 
-    Ta-da: This script does the job. Like a machine. (With a few extras.)
+    Ta-da: This script does the job. (With a few extras.)
 
 
 Optional (Mac only): 
