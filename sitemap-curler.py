@@ -59,19 +59,10 @@ if followUpSaveToFile == "y":
 
 
 # OPTIONAL FOLLOW UP #2: OPEN URLS (ALL OR RANGE) IN BROWSER
-followUpOpenInBrowser = input("\nDo you want to open the links in your browser? (y/n) ")
-
-
 def exitProgram():
     print("\nProgram finished.\n")
     f.close()
     exit()
-
-
-if followUpOpenInBrowser == "n":
-    exitProgram()
-
-ynRange = input("\nAll of them? (y/n) ")
 
 
 def rangeSpec():
@@ -81,28 +72,49 @@ def rangeSpec():
     return rangeSpec.rangeFrom, rangeSpec.rangeTo
 
 
-rangeSpec()
+def openAllWindows(linkRepo=linkRepo):
+    print("\nOpening all windows...")
 
-# RANGE VALIDATION
-if rangeSpec.rangeFrom < 0 or rangeSpec.rangeTo < 0:
-    print("\nError: Please enter positive ranges")
-    rangeSpec()
-elif rangeSpec.rangeTo - rangeSpec.rangeTo < 0:
-    print('\nError: "From" is greater than "To"')
-    rangeSpec()
-
-
-if followUpOpenInBrowser == "y":
-    print("\nOpening windows...")
-
-    if ynRange == "y":
-        for i in range(0, len(linkRepo)):
-            webbrowser.open(linkRepo[i], new=2)
-
-    else:
-        for i in range(rangeSpec.rangeFrom - 1, rangeSpec.rangeTo):
-            webbrowser.open(linkRepo[i], new=2)
+    for i in range(0, len(linkRepo)):
+        webbrowser.open(linkRepo[i], new=2)
 
     print("Finished opening windows.")
 
-exitProgram()
+
+followUpOpenInBrowser = input("\nDo you want to open the links in your browser? (y/n) ")
+
+if followUpOpenInBrowser == "n":
+    exitProgram()
+
+elif followUpOpenInBrowser == "y":
+    howManyWindows = input("\nAll of them? (y/n) ")
+
+    if howManyWindows == "n":
+        rangeSpec()
+
+        def rangeValidation(rangeFrom=rangeSpec.rangeFrom, rangeTo=rangeSpec.rangeTo):
+            if rangeFrom < 0 or rangeTo < 0 or rangeTo - rangeFrom < 0:
+                print("\nError: Please enter valid range")
+                rangeSpec()
+
+        rangeValidation()
+
+        def openRangeWindows(
+            rangeFrom=rangeSpec.rangeFrom, rangeTo=rangeSpec.rangeTo, linkRepo=linkRepo
+        ):
+            print("\nOpening specified window range...")
+
+            for i in range(rangeSpec.rangeFrom - 1, rangeSpec.rangeTo):
+                webbrowser.open(linkRepo[i], new=2)
+
+            print("Finished opening windows.")
+
+        openRangeWindows()
+
+    elif howManyWindows == "y":
+        openAllWindows()
+
+    exitProgram()
+
+else:
+    exitProgram()
